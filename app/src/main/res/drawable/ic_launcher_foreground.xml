@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Outer Shield Body -->
+    <path
+        android:pathData="M54,26 C64,26 73,30 76,33 C76,55 68,71 54,80 C40,71 32,55 32,33 C35,30 44,26 54,26 Z"
+        android:strokeWidth="2.5"
+        android:strokeColor="#F59E0B">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="26"
+                android:endX="54"
+                android:endY="80"
+                android:type="linear">
+                <item android:color="#1E3A8A" android:offset="0.0" />
+                <item android:color="#0F172A" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner Shield Border -->
+    <path
+        android:pathData="M54,31 C61,31 69,34 71,36 C71,53 64,66 54,74 C44,66 37,53 37,36 C39,34 47,31 54,31 Z"
+        android:strokeWidth="1.2"
+        android:strokeColor="#38BDF8"
+        android:fillColor="#00000000" />
+
+    <!-- Open Book Symbol of Education -->
+    <path
+        android:pathData="M54,49 C51,46 45,45 40,46 L40,60 C45,59 51,60 54,63 C57,60 63,59 68,60 L68,46 C63,45 57,46 54,49 Z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Book Spine Divider -->
+    <path
+        android:pathData="M54,49 L54,63"
+        android:strokeWidth="1.5"
+        android:strokeColor="#CBD5E1" />
+
+    <!-- Checkmark Badge of Principal Approval & Discipline Authority -->
+    <path
+        android:pathData="M54,36 L56,41 L61,41.5 L57.5,45 L58.5,50 L54,47.5 L49.5,50 L50.5,45 L47,41.5 L52,41 Z"
+        android:fillColor="#FBBF24" />
+
+    <!-- Scales / Check Ribbon at bottom of book -->
+    <path
+        android:pathData="M49,67 L53,71 L59,64"
+        android:strokeWidth="2.5"
+        android:strokeColor="#34D399"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000" />
+</vector>
