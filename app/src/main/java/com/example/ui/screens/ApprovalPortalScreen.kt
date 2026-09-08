@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -167,12 +168,18 @@ fun ApprovalPortalScreen(
             )
         }
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.TopCenter
         ) {
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 1100.dp)
+                    .fillMaxSize()
+            ) {
             // Header stats banner
             Surface(
                 color = Color.White,
@@ -350,6 +357,7 @@ fun ApprovalPortalScreen(
                     }
                 }
             }
+        }
         }
     }
 

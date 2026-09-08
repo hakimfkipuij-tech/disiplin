@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -189,14 +191,20 @@ fun DashboardScreen(
             )
         }
     ) { innerPadding ->
-        LazyColumn(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            contentAlignment = Alignment.TopCenter
         ) {
+            LazyColumn(
+                modifier = Modifier
+                    .widthIn(max = 1100.dp)
+                    .fillMaxSize(),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
             // Section 1: Principal Welcome & Identity Card
             item {
                 PrincipalHeaderCard()
@@ -299,6 +307,7 @@ fun DashboardScreen(
             item {
                 Spacer(modifier = Modifier.height(24.dp))
             }
+        }
         }
     }
 }
@@ -457,12 +466,14 @@ private fun MetricCardsGrid(
     resolutionRate: Int,
     onPendingClick: () -> Unit
 ) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
+    val configuration = LocalConfiguration.current
+    val isWideScreen = configuration.screenWidthDp >= 600
+
+    if (isWideScreen) {
+        // Desktop / Tablet layout: All 4 cards in a single responsive row
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             MetricCard(
                 title = "Total Kasus",
@@ -487,12 +498,7 @@ private fun MetricCardsGrid(
                     .clickable { onPendingClick() }
                     .testTag("metric_pending_approval_card")
             )
-        }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
             MetricCard(
                 title = "Kasus Berat",
                 value = "$criticalCount",
@@ -512,6 +518,65 @@ private fun MetricCardsGrid(
                 containerColor = Color.White,
                 modifier = Modifier.weight(1f)
             )
+        }
+    } else {
+        // Mobile layout: 2x2 grid
+        Column(
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                MetricCard(
+                    title = "Total Kasus",
+                    value = "$totalCount",
+                    subtitle = "Bulan Ini",
+                    icon = Icons.AutoMirrored.Filled.Assignment,
+                    iconTint = PrincipalNavy,
+                    containerColor = Color.White,
+                    modifier = Modifier.weight(1f)
+                )
+
+                MetricCard(
+                    title = "Menunggu Acc",
+                    value = "$pendingCount",
+                    subtitle = if (pendingCount > 0) "Perlu Tindakan!" else "Semua Tuntas",
+                    icon = Icons.Default.Gavel,
+                    iconTint = AuthorityAmber,
+                    containerColor = if (pendingCount > 0) AuthorityAmberContainer else Color.White,
+                    valueColor = if (pendingCount > 0) Color(0xFF78350F) else PrincipalNavy,
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { onPendingClick() }
+                        .testTag("metric_pending_approval_card")
+                )
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                MetricCard(
+                    title = "Kasus Berat",
+                    value = "$criticalCount",
+                    subtitle = "Poin >= 40",
+                    icon = Icons.Default.Warning,
+                    iconTint = StatusDanger,
+                    containerColor = Color.White,
+                    modifier = Modifier.weight(1f)
+                )
+
+                MetricCard(
+                    title = "Tingkat Disiplin",
+                    value = "$resolutionRate%",
+                    subtitle = "Terselesaikan",
+                    icon = Icons.Default.CheckCircle,
+                    iconTint = StatusSuccess,
+                    containerColor = Color.White,
+                    modifier = Modifier.weight(1f)
+                )
+            }
         }
     }
 }

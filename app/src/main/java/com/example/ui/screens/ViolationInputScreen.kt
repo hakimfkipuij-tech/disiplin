@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -161,14 +162,20 @@ fun ViolationInputScreen(
             )
         }
     ) { innerPadding ->
-        LazyColumn(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            contentAlignment = Alignment.TopCenter
         ) {
+            LazyColumn(
+                modifier = Modifier
+                    .widthIn(max = 1000.dp)
+                    .fillMaxSize(),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
             // Error banner if any
             formState.errorMessage?.let { errorMsg ->
                 item {
@@ -757,6 +764,7 @@ fun ViolationInputScreen(
             item {
                 Spacer(modifier = Modifier.height(24.dp))
             }
+        }
         }
     }
 
